@@ -58,7 +58,7 @@ app.post("/", function (req, res) {
 
 app.put("/", function (req, res) {
   for (let i = 0; i < users[0].kidneys.length; i++) {
-    users[0].kidneys[i].healthy = true;
+    users[0].kidneys[i].healthy = true;   // Making all the kidneys healthy #CuringKidneys
   }
   res.json({}); // You must send atleast an empty response
 });
@@ -68,19 +68,19 @@ app.delete("/", function (req, res) {
   if (CheckUnhealthyKidneysPresent() != 0) {
     for (let i = 0; i < users[0].kidneys.length; i++) {
       if (users[0].kidneys[i].healthy) {
-        new_kidneys.push({
+        new_kidneys.push({                                      // Pushing only healthy Kidneys
           healthy: true,
         });
       }
     }
-    users[0].kidneys = new_kidneys;
+    users[0].kidneys = new_kidneys;                            // Adding only healthy Kidneys
     res.json({
       msg: "done",
     });
   }
-  else{
+  else {
     res.status(411).json({
-      msg: "No unhealthy kidneys found"
+      msg: "No unhealthy kidneys found"                       // Showing this because if there is no unhealthy kidney present then there is nothing available to remove
     })
   }
 });
@@ -89,7 +89,7 @@ function CheckUnhealthyKidneysPresent() {
   let UnhealthyKidneysCount = 0;
   for (let i = 0; i < users[0].kidneys.length; i++) {
     if (users[0].kidneys[i].healthy == false) {
-      UnhealthyKidneysCount+=1
+      UnhealthyKidneysCount += 1;
     }
   }
   return UnhealthyKidneysCount;

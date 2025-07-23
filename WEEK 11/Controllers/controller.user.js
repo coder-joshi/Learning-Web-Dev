@@ -7,6 +7,7 @@ async function handleUserSignUp(req,res){
     await User.create({name,email,password});
     return res.redirect("/");
 }
+
 async function handleUserLogin(req, res) {
   const {email, password } = req.body;
   const user = await User.findOne({email, password });
@@ -14,10 +15,10 @@ async function handleUserLogin(req, res) {
     return res.render("Login",{
       error: "Invalid useranme or password"
     });
-  }
+  } 
   
   const token = setUser(user);
-  res.cookie("uid",token);
+  res.json({token})
   return res.redirect("/")
 }
 
